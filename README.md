@@ -5,6 +5,8 @@ Gathering to play with Arduino with ClojureScript through Node+Johnny-Five
 - https://ti.to/houstonjs/nodebotsday
 - http://www.meetup.com/houston-js/events/195628942/
 
+![photo](http://i.imgur.com/ZOHGlSU.jpg)
+
 ### Arduino Setup
 
 1. Download/Install/Open [Arduino IDE](http://arduino.cc/en/Main/Software).
