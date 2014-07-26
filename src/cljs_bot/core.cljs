@@ -39,6 +39,21 @@
     ; turn off all lights
     (doseq [led leds] (.off led))))
 
+(defn go-go-count!
+  [leds rate]
+  (go
+    (dotimes [i 32]
+
+      ; turn on/off appropriate lights
+      (doseq [[j led] (map-indexed vector leds)]
+        (if (= 1 (bit-and (bit-shift-right i j) 1))
+          (.on led)
+          (.off led)))
+
+      (<! (timeout rate))
+
+    )))
+
 (defn on-ready
   []
   (let [leds [(Led. 8)
@@ -49,9 +64,14 @@
 
     (go
       (loop []
-        (<! (go-go-bounce! leds
-                 (rand-int2 25 100)
-                 (rand-int2 1 3)))
+        (let [f (rand-nth
+                  [#(go-go-bounce! leds
+                                   (rand-int2 25 100)
+                                   (rand-int2 1 3))
+                   #(go-go-count! leds
+                                  (rand-int2 25 100))
+                   ])]
+          (<! (f)))
         (recur)))
     
     ))
